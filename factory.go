@@ -35,3 +35,18 @@ func MakeLeaderElector(ctx context.Context, id string, args ...interface{}) (
 
 	return leaderElectorFactories[id](ctx, args...)
 }
+
+var leaderElectorFactories map[string]leaderElectorFactoryFunc1
+
+// RegisterLeaderElectorFactory will register a new LeaderElector factory
+// method corresponding to the passed id.
+func RegisterLeaderElectorFactory(id string, factory leaderElectorFactoryFunc1) {
+	if leaderElectorFactories == nil {
+		leaderElectorFactories = make(
+			map[string]leaderElectorFactoryFunc,
+		)
+	}
+
+	leaderElectorFactories[id1] = factory
+}
+
